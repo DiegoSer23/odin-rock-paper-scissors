@@ -61,21 +61,29 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        humanChoice = getHumanChoice()
-        computerChoice = getComputerChoice()
-        playRound(humanChoice, computerChoice)
-    }
-    if (humanScore > computerScore) {
-        console.log("You win!")
-    }
-    else if (computerScore > humanScore) {
-        console.log("Computer won!")
-    }
-    else {
-        console.log("Tied game!")
+function choiceHandler(event, choice) {
+    playRound(choice, getComputerChoice());
+    const results = document.getElementById("results");
+    results.textContent = `Results: Human wins: ${humanScore} Computer wins: ${computerScore}`
+    if (humanScore >= 5) {
+        results.textContent += "Human wins!"
+    } else if (ComputerScore >= 5) {
+        results.textContent += "Computer wins!"
     }
 }
 
-playGame()
+const rockButton = document.getElementById("rock");
+const paperButton = document.getElementById("paper");
+const scissorsButton = document.getElementById("scissors");
+
+rockButton.addEventListener("click", function(event) {
+    choiceHandler(event, rockButton.textContent.toLowerCase())
+})
+
+paperButton.addEventListener("click", function(event) {
+    choiceHandler(event, paperButton.textContent.toLowerCase())
+})
+
+scissorsButton.addEventListener("click", function(event) {
+    choiceHandler(event, scissorsButton.textContent.toLowerCase())
+})
